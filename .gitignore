@@ -1,0 +1,45 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+ENV/
+env/
+
+# ---- Packaging ----
+build/
+dist/
+*.egg-info/
+
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- Secrets ----
+.env
+
+# ---- Local data (keep structure via .gitkeep) ----
+data/*
+!data/.gitkeep
+!data/chromadb/
+data/chromadb/*
+!data/chromadb/.gitkeep
+
+# ---- Streamlit ----
+.streamlit/
+
+# ---- Logs ----
+*.log
+logs/

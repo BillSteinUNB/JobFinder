@@ -1,0 +1,22 @@
+# Core
+pydantic==2.10.6
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
+requests==2.32.3
+
+# Data + DB
+chromadb==0.5.23
+
+# Embeddings / NLP
+sentence-transformers==3.3.1
+torch==2.6.0
+
+# Resume parsing
+pdfplumber==0.11.5
+
+# Dashboard
+streamlit==1.41.1
+
+# Dev/Test tooling
+pytest==8.3.4
+ruff==0.8.4
