@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+﻿# Job Finder - Frontend
 
-# Run and deploy your AI Studio app
+React frontend for the Job Finder application.
 
-This contains everything you need to run your app locally.
+## Prerequisites
 
-View your app in AI Studio: https://ai.studio/apps/drive/1PPXvR24XgAaNq8N43wGfX72c-FnDgNGo
+- Node.js 18+
+- Backend API running on http://localhost:8000
 
-## Run Locally
+## Setup
 
-**Prerequisites:**  Node.js
+```bash
+npm install
+echo "VITE_API_URL=http://localhost:8000" > .env.local
+npm run dev
+```
 
+Open: http://localhost:5173
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Tech Stack
+
+- React 19 + TypeScript + Vite
+- TanStack Query (React Query)
+- Zustand (UI state)
+- Tailwind CSS

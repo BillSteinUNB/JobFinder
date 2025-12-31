@@ -1,87 +1,87 @@
-# Job Finder (Job Recommender System)
+﻿# Job Finder
 
-A portfolio-grade system that ingests job postings from APIs, parses your resume, computes semantic similarity using NLP, and provides explainable job recommendations through a Streamlit dashboard.
+A portfolio-grade job recommendation system that uses NLP/ML to match your resume to job postings with explainable recommendations.
 
 ## Features
 
-- **Automated Job Ingestion:** Fetches jobs from Adzuna API
-- **Semantic Matching:** Uses `sentence-transformers` to match resume to job descriptions
-- **Vector Search:** ChromaDB for fast similarity search across thousands of jobs
-- **Explainable Recommendations:** See *why* each job was recommended
-- **Interactive Dashboard:** Filter, sort, and explore jobs in Streamlit
+- **Resume Parsing:** Upload your resume (PDF/TXT) and extract skills automatically
+- **Semantic Matching:** Uses sentence-transformers to find jobs that match your experience
+- **Hybrid Scoring:** Combines embedding similarity, skill overlap, location, salary, and recency
+- **Explainable Recommendations:** See why each job was recommended
+- **Modern React UI:** Fast, responsive interface with real-time updates
+- **Local-first:** Runs entirely on your machine with persistent data
 
 ## Tech Stack
 
 | Component | Technology |
 | :--- | :--- |
-| Data Source | Adzuna API |
-| NLP Model | `all-MiniLM-L6-v2` |
+| Backend | FastAPI (Python 3.11+) |
+| Frontend | React 19 + TypeScript + Vite |
+| NLP Model | all-MiniLM-L6-v2 (sentence-transformers) |
 | Vector DB | ChromaDB |
 | Metadata DB | SQLite |
+| Data Source | Adzuna API |
 | Resume Parsing | pdfplumber |
-| Dashboard | Streamlit |
 
-## Quickstart
+## Quick Start
 
-### 1) Create environment
-
-**Recommended (2025): uv**
+### Option 1: Automated Setup (Recommended)
 
 ```bash
-uv venv
-uv pip install -r requirements.txt
+git clone https://github.com/BillSteinUNB/JobFinder.git
+cd JobFinder
+python scripts/setup_local.py
 ```
 
-**Alternative: venv + pip**
+### Option 2: Manual Setup
 
+1. Create Python environment:
 ```bash
 python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
-
+.venv\Scripts\activate  # Windows
 pip install -r requirements.txt
 ```
 
-### 2) Configure environment
-
+2. Install frontend:
 ```bash
-cp .env.example .env
-# Edit .env and fill in your ADZUNA_APP_ID and ADZUNA_APP_KEY
-# Get your free API key at https://developer.adzuna.com/
+cd jobhunt && npm install && cd ..
 ```
 
-### 3) Run Streamlit
+3. Configure environment - create .env:
+```
+ADZUNA_APP_ID=your_app_id
+ADZUNA_APP_KEY=your_app_key
+```
 
+4. Collect jobs and build index:
 ```bash
-streamlit run app/streamlit_app.py
+python scripts/collect_all_jobs.py --target 1000
+python scripts/build_vector_index.py
 ```
 
-## Project Structure
+## Running the App
 
-```text
-job-finder/
-├── app/                        # Streamlit Dashboard
-│   ├── components/             # Reusable UI widgets
-│   └── streamlit_app.py        # Main dashboard entry point
-├── data/                       # Local storage (gitignored)
-├── notebooks/                  # EDA and experimentation
-├── src/                        # Core logic
-│   ├── data_collection/        # API clients
-│   ├── db/                     # Database handlers
-│   ├── matching/               # Ranking and NLP
-│   ├── processing/             # Text cleaning and parsing
-│   └── utils/                  # Helpers
-├── tests/                      # Unit tests
-├── scripts/                    # CLI tools
-├── Development.md              # Technical blueprint
-└── requirements.txt            # Dependencies
+Terminal 1 - Backend:
+```bash
+uvicorn api.main:app --reload --port 8000
 ```
 
-## Documentation
+Terminal 2 - Frontend:
+```bash
+cd jobhunt && npm run dev
+```
 
-See [Development.md](./Development.md) for the full technical blueprint, database schema, and development roadmap.
+Open: http://localhost:5173
+
+## Public Access with ngrok
+
+For demos/interviews:
+
+1. Install ngrok from https://ngrok.com/download
+2. Start backend: uvicorn api.main:app --reload --port 8000
+3. Expose backend: ngrok http 8000
+4. Update jobhunt/.env.local with ngrok URL
+5. Restart frontend
 
 ## License
 
