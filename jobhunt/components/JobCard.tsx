@@ -1,6 +1,6 @@
 import React from 'react';
 import { Job } from '../types';
-import { MapPin, DollarSign, Clock, Star } from 'lucide-react';
+import { MapPin, DollarSign, Clock } from 'lucide-react';
 
 interface JobCardProps {
   job: Job;
@@ -10,7 +10,24 @@ interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = ({ job, isSelected, onClick }) => {
   // Format salary
-  const salary = `$${(job.salaryMin / 1000).toFixed(0)}k - $${(job.salaryMax / 1000).toFixed(0)}k`;
+  const salary = job.salaryMin || job.salaryMax 
+    ? `$${((job.salaryMin || 0) / 1000).toFixed(0)}k - $${((job.salaryMax || 0) / 1000).toFixed(0)}k`
+    : 'Salary not listed';
+  
+  // Format relative time
+  const getRelativeTime = (dateStr: string) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return '1d ago';
+    if (diffDays < 7) return `${diffDays}d ago`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`;
+    return `${Math.floor(diffDays / 30)}mo ago`;
+  };
 
   return (
     <div 
@@ -39,7 +56,7 @@ const JobCard: React.FC<JobCardProps> = ({ job, isSelected, onClick }) => {
                 }`}>
                     {job.matchScore}% Match
                 </div>
-                <span className="text-xs text-zinc-400">2d ago</span>
+                <span className="text-xs text-zinc-400">{getRelativeTime(job.postedAt)}</span>
             </div>
         </div>
 

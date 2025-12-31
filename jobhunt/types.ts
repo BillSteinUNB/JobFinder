@@ -43,6 +43,11 @@ export interface Job {
   benefits: string[];
   isRemote: boolean;
   status?: 'new' | 'viewed';
+  // Additional fields from API
+  url?: string;
+  category?: string;
+  explanation?: string;
+  breakdown?: Record<string, number>;
 }
 
 export type ApplicationStatus = 'saved' | 'applied' | 'screening' | 'interview' | 'offer' | 'rejected';
@@ -60,15 +65,20 @@ export interface Application {
 }
 
 export interface ResumeData {
-  fileName: string;
-  uploadedAt: string;
+  fileName: string | null;
+  uploadedAt: string | null;
   skills: string[];
   experience: { role: string; company: string; duration: string }[];
   education: { degree: string; school: string; year: string }[];
+  preferredLocation?: string | null;
+  minSalary?: number | null;
 }
 
 export interface AnalyticsData {
   applicationsOverTime: { date: string; count: number }[];
   funnel: { stage: string; count: number; fill: string }[];
   skillsMatch: { name: string; score: number }[];
+  totalJobs?: number;
+  totalApplications?: number;
+  avgMatchScore?: number;
 }

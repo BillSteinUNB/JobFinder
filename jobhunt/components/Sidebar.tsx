@@ -1,12 +1,15 @@
 import React from 'react';
 import { useAppStore } from '../store';
+import { useApplications } from '../hooks';
 import { LayoutDashboard, Search, FileText, Briefcase, BarChart2, Settings, ChevronLeft, ChevronRight, HelpCircle } from 'lucide-react';
 import { ViewState } from '../types';
 import { CURRENT_USER } from '../constants';
 
 const Sidebar: React.FC = () => {
-  const { currentView, setView, isSidebarCollapsed, toggleSidebar, applications } = useAppStore();
+  const { currentView, setView, isSidebarCollapsed, toggleSidebar } = useAppStore();
+  const { data: appsData } = useApplications();
   
+  const applications = appsData?.applications || [];
   const activeCount = applications.filter(a => ['applied', 'screening', 'interview'].includes(a.status)).length;
 
   const NavItem = ({ view, icon: Icon, label, badge }: { view: ViewState, icon: any, label: string, badge?: number }) => {
