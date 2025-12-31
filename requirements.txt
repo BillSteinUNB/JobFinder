@@ -17,6 +17,11 @@ pdfplumber==0.11.5
 # Dashboard
 streamlit==1.41.1
 
+# API Server
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart==0.0.12
+
 # Dev/Test tooling
 pytest==8.3.4
 pytest-cov==6.0.0
