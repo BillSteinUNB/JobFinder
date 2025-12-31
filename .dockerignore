@@ -1,0 +1,84 @@
+# =============================================================================
+# Docker Ignore File
+# =============================================================================
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+.eggs
+*.egg
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Virtual environments
+.venv
+venv
+ENV
+env
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Testing
+.coverage
+coverage.xml
+htmlcov
+.tox
+.nox
+
+# Documentation
+docs/_build
+
+# Data (will be mounted as volume)
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files (will be mounted separately)
+.env
+.env.*
+!.env.example
+
+# Notebooks (development only)
+notebooks/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.docker
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Misc
+*.md
+!README.md
+LICENSE
+Makefile
